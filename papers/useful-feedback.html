@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>有用的记忆，在 LLM 持续更新中变得有缺陷</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; line-height: 1.8; color: #1a1a2e; background: #f8f9fa; }
+.header { background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 50%, #4a1942 100%); color: #fff; padding: 48px 24px 40px; text-align: center; }
+.header h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+.header .sub { font-size: 16px; opacity: 0.9; margin-top: 4px; }
+.header .meta { font-size: 14px; opacity: 0.7; margin-top: 8px; }
+.header .meta a { color: #c4b5fd; text-decoration: none; }
+.container { max-width: 780px; margin: 0 auto; padding: 32px 20px; }
+.highlight { background: linear-gradient(135deg, #4a194222, #2d1b4e22); border-left: 4px solid #4a1942; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; font-size: 15px; }
+.highlight strong { color: #4a1942; }
+h2 { font-size: 21px; font-weight: 700; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #4a194233; color: #4a1942; }
+p { font-size: 16px; margin-bottom: 16px; text-align: justify; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+.stat-card { background: #fff; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.stat-card .num { font-size: 36px; font-weight: 800; margin: 4px 0; }
+.stat-card .label { font-size: 13px; color: #6b7280; }
+.stat-card.red .num { color: #dc2626; }
+.stat-card.purple .num { color: #7c3aed; }
+.stat-card.amber .num { color: #d97706; }
+.failure-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
+.failure-card { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-top: 3px solid; }
+.failure-card.misgroup { border-color: #dc2626; }
+.failure-card.overgen { border-color: #d97706; }
+.failure-card.overfit { border-color: #7c3aed; }
+.failure-card .ftitle { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.failure-card.misgroup .ftitle { color: #dc2626; }
+.failure-card.overgen .ftitle { color: #d97706; }
+.failure-card.overfit .ftitle { color: #7c3aed; }
+.failure-card .fdesc { font-size: 13px; color: #4a5568; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
+.compare-card { background: #fff; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.compare-card .ctitle { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+.compare-card .cdesc { font-size: 13px; color: #4a5568; }
+.compare-card.force { border-top: 3px solid #dc2626; }
+.compare-card.force .ctitle { color: #dc2626; }
+.compare-card.auto { border-top: 3px solid #16a34a; }
+.compare-card.auto .ctitle { color: #16a34a; }
+.compare-card.epi { border-top: 3px solid #2563eb; }
+.compare-card.epi .ctitle { color: #2563eb; }
+.insight-box { background: #fef3c7; border-left: 4px solid #d97706; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; color: #92400e; }
+.takeaway { background: #fff; border-radius: 10px; padding: 16px 20px; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 3px solid #4a1942; }
+.takeaway .tnum { font-weight: 800; color: #4a1942; font-size: 15px; margin-bottom: 2px; }
+.takeaway .tdesc { font-size: 14px; color: #374151; }
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+table th { background: #4a1942; color: #fff; padding: 10px 8px; text-align: center; font-weight: 600; }
+table td { padding: 8px; border-bottom: 1px solid #e5e7eb; text-align: center; }
+table tr:nth-child(even) { background: #faf5ff; }
+table tr.best { background: #f0fdf4; }
+.quote-block { background: #f0f4ff; border-radius: 8px; padding: 16px 20px; margin: 20px 0; font-style: italic; font-size: 15px; color: #374151; border-left: 4px solid #2563eb; }
+.footer { text-align: center; padding: 32px 20px; font-size: 13px; color: #9ca3af; border-top: 1px solid #e5e7eb; margin-top: 40px; }
+.footer a { color: #4a1942; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>有用的记忆，在 LLM 持续更新中变得有缺陷</h1>
+  <p class="sub">Agent 记忆整合的系统性失败分析</p>
+  <div class="meta">
+    2605.12978 &nbsp;|&nbsp; UIUC & Tsinghua IIIS &nbsp;|&nbsp; Dylan Zhang, Yanshan Lin 等
+    <br><a href="https://arxiv.org/abs/2605.12978">arxiv.org/abs/2605.12978</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="highlight">
+  <strong>核心发现：</strong>当前 Agent 记忆系统假设每次记忆整合（consolidation）至少无害。本文证明这个假设是错的——持续更新的记忆不仅不会自我优化，反而会变得越来越差，甚至跌到没有记忆的基线之下。GPT-5.4 在用 ground-truth 解题轨迹做整合后，在原本能 100% 解决的 ARC-AGI 题目上暴跌至 54%。
+</div>
+
+<h2>令人震惊的实验</h2>
+
+<div class="stat-grid">
+  <div class="stat-card red">
+    <div class="label">GPT-5.4 无记忆正确率</div>
+    <div class="num">100%</div>
+    <div class="label">19 道 ARC-AGI 题目</div>
+  </div>
+  <div class="stat-card purple">
+    <div class="label">用 GT 轨迹整合后</div>
+    <div class="num">54%</div>
+    <div class="label">同样的 19 道题</div>
+  </div>
+</div>
+
+<div class="quote-block">
+  "The failure can therefore be attributed to faulty memory rather than to noisy trajectories." — 不是轨迹有问题，不是任务变难了，纯粹是 LLM 在做"整合"时把有用的信息改坏了。
+</div>
+
+<h2>记忆效用：先升后降</h2>
+
+<p>在 ScienceWorld、WebShop、ALFWorld、AppWorld 四个 benchmark 上，观察到了一致的模式：从空记忆开始，随整合次数增加，性能先上升后下降。</p>
+
+<div class="stat-grid">
+  <div class="stat-card amber">
+    <div class="label">WebShop AWM 8 个示例</div>
+    <div class="num">0.64</div>
+    <div class="label">峰值性能</div>
+  </div>
+  <div class="stat-card red">
+    <div class="label">WebShop AWM 128 个示例</div>
+    <div class="num">0.20</div>
+    <div class="label">与无记忆持平 — 更多经验 = 更差记忆</div>
+  </div>
+</div>
+
+<p><strong>三个关键观察：</strong></p>
+<p>1. <strong>流式更新远差于批量更新。</strong> 同样的轨迹池，一次性整合比分批次流式整合效果好得多。流式更新中早期的小错误被后续整合反复复用，错误逐步累积放大。</p>
+<p>2. <strong>异构批次加速退化。</strong> 混合不同任务的批次比单任务批次产出更差记忆——模型在同一轮整合中合并了不兼容的经验。</p>
+<p>3. <strong>高质量初始记忆也无法稳定。</strong> 先用 GPT-5.4 做高质量整合，再用 GPT-5-nano 持续更新，性能在所有 solver 上都持续下降。</p>
+
+<h2>原始轨迹本身就是强 baseline</h2>
+
+<div class="insight-box">
+  ⚡ 关键对照：不做任何整合，直接把原始解题轨迹作为 in-context examples 拼到 context 里。这个"笨"方法在几乎所有场景下都和整合方法相当甚至更好。轨迹中包含的观测、动作、中间失败、环境反馈都绑定在具体情境中——对 solver 已经足够有用。
+</div>
+
+<h2>三种失败模式</h2>
+
+<div class="failure-grid">
+  <div class="failure-card misgroup">
+    <div class="ftitle">❌ 错误分组</div>
+    <div class="fdesc">整合前未正确识别经验类别。模型能识别结构，但在执行整合时破坏了自己已识别的分组。需要 568 个示例才能收敛到正确分类。</div>
+  </div>
+  <div class="failure-card overgen">
+    <div class="ftitle">⚠️ 过度泛化</div>
+    <div class="fdesc">整合剥离经验适用的前提条件，产生看似通用实则误导的经验。累积整合比单任务整合落后 203 分，过泛化记忆速率高 5 倍。</div>
+  </div>
+  <div class="failure-card overfit">
+    <div class="ftitle">🎯 过拟合</div>
+    <div class="fdesc">窄分布输入下，记忆过拟合到具体实例而非底层策略。相同题目表现稳定，同家族内简单变体上崩溃。</div>
+  </div>
+</div>
+
+<h2>正确的记忆架构</h2>
+
+<p>ARC-AGI Stream 环境中给 Agent 三种操作——Retain、Delete、Consolidate——对比三种策略：</p>
+
+<div class="compare-grid">
+  <div class="compare-card force">
+    <div class="ctitle">Force 强制整合</div>
+    <div class="cdesc">每步强制整合<br>不保留原始轨迹<br><strong>性能最差</strong></div>
+  </div>
+  <div class="compare-card auto">
+    <div class="ctitle">Auto 自主选择</div>
+    <div class="cdesc">模型自主选择<br>默认保留原始轨迹<br><strong>准确率是 Force 的 2 倍</strong></div>
+  </div>
+  <div class="compare-card epi">
+    <div class="ctitle">Episodic Only</div>
+    <div class="cdesc">只能保留/删除<br>完全禁用整合<br><strong>性能与 Auto 持平</strong></div>
+  </div>
+</div>
+
+<div class="insight-box">
+  📊 Agent 自己的行为模式：在 Auto 模式下，模型会迅速填满 episodic buffer（100 个位置），而 abstract store 始终保持稀疏——当架构允许时，Agent 自己就选择了"保留证据、少做整合"的策略。
+</div>
+
+<h2>核心启示</h2>
+
+<div class="takeaway">
+  <div class="tnum">1. 原始轨迹是一等公民</div>
+  <div class="tdesc">不是待压缩的废料。当前系统把 trajectory 当作需要被"提炼"的素材，但它本身就是最有价值的记忆形式。</div>
+</div>
+
+<div class="takeaway">
+  <div class="tnum">2. 整合应选择性、延迟、可回溯</div>
+  <div class="tdesc">不应在每次交互后都触发。整合前需确认分组正确，整合后需验证没丢失关键前提条件。</div>
+</div>
+
+<div class="takeaway">
+  <div class="tnum">3. Episodic 和 Schema 应架构分离</div>
+  <div class="tdesc">认知科学的 Complementary Learning Systems 理论：快速情景记忆和慢速模式形成应该分开存储。当前系统把两种角色压缩到一个重写循环里，正是制造干扰的条件。</div>
+</div>
+
+<div class="takeaway">
+  <div class="tnum">4. 持续更新 ≠ 自我进化</div>
+  <div class="tdesc">"持续更新的文本记忆"不是可靠的自进化引擎。在 Agent 可以可靠地控制何时、如何整合之前，应该对记忆更新持保守态度。</div>
+</div>
+
+<div class="highlight">
+  <strong>对你正在做的方向：</strong>这篇论文的诊断覆盖了当前大多数 Agent 框架的记忆设计。如果 OpenClaw 或你探索的 self-improving agent 包含"轨迹→文本经验→持续更新"的记忆链路，这篇论文的发现值得认真对待。
+</div>
+
+<div class="footer">
+  论文链接：<a href="https://arxiv.org/abs/2605.12978">arxiv.org/abs/2605.12978</a> &nbsp;|&nbsp;
+  UIUC & Tsinghua IIIS
+</div>
+
+</div>
+</body>
+</html>
