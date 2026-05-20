@@ -51,20 +51,6 @@
     letter-spacing: 0.3px;
   }
 
-  /* ── Section Label ── */
-  .section-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #C0552D;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #C0552D;
-    display: inline-block;
-  }
-
   /* ── Article List ── */
   .article-list {
     list-style: none;
@@ -77,13 +63,6 @@
 
   .article-item:last-child {
     border-bottom: none;
-  }
-
-  .article-item.featured {
-    background: linear-gradient(135deg, #FDF8F0 0%, #FBF3EA 100%);
-    padding: 28px 24px;
-    margin: 0 -24px;
-    border-bottom: 1px solid #E8DFD0;
   }
 
   .article-item h2 {
@@ -117,63 +96,11 @@
     color: #CCC3B5;
   }
 
-  .article-meta .badge {
-    display: inline-block;
-    background: #C0552D;
-    color: #FDF8F0;
-    font-size: 0.68rem;
-    font-weight: 600;
-    padding: 1px 7px;
-    border-radius: 3px;
-    margin-right: 6px;
-    vertical-align: middle;
-    letter-spacing: 0.02em;
-  }
-
   .article-desc {
     font-size: 0.95rem;
     color: #5C5347;
     line-height: 1.75;
     max-width: 600px;
-  }
-
-  /* ── Pagination ── */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    padding: 32px 0 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .pagination button {
-    background: none;
-    border: 1px solid #D4C9B8;
-    color: #5C5347;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    padding: 6px 14px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .pagination button:hover:not(:disabled) {
-    border-color: #C0552D;
-    color: #C0552D;
-  }
-
-  .pagination button:disabled {
-    opacity: 0.35;
-    cursor: default;
-  }
-
-  .pagination .page-info {
-    font-size: 0.78rem;
-    color: #A09686;
-    min-width: 80px;
-    text-align: center;
   }
 
   /* ── Footer ── */
@@ -204,7 +131,6 @@
     .site-title { font-size: 1.35rem; }
     .article-item { padding: 20px 0; }
     .article-item h2 { font-size: 1.05rem; }
-    .article-item.featured { padding: 20px 16px; margin: 0 -16px; }
   }
 </style>
 </head>
@@ -215,99 +141,43 @@
       <div class="site-subtitle">AI papers, visualized and explained</div>
     </header>
 
-    <!-- ══════ Page 1: Featured + Papers ══════ -->
-    <div class="article-page" data-page="1">
+    <ul class="article-list">
 
-      <div class="section-label">系列教程</div>
-      <ul class="article-list">
-        <li class="article-item featured">
-          <h2><a href="claude-code-101/index.html">Claude Code 101 系列教程 · 9 课从入门到实战</a></h2>
-          <div class="article-meta"><span class="badge">9 课</span>2026-05-20<span class="sep">Claude Code</span><span class="sep">Anthropic 官方</span></div>
-          <div class="article-desc">来自 Claude 官方频道的完整教程系列：从安装到 MCP 集成、Hooks 钩子，覆盖 Agentic Loop、CLAUDE.md、Explore→Plan→Code→Commit 工作流、上下文管理等核心概念。</div>
-        </li>
-      </ul>
+      <li class="article-item">
+        <h2><a href="papers/memo.html">MeMo：把记忆本身变成一个模型</a></h2>
+        <div class="article-meta">2026-05-21<span class="sep">LLM</span><span class="sep">知识集成</span><span class="sep">Memory</span></div>
+        <div class="article-desc">用独立小模型当「记忆」，主模型完全不动参数。训练时消化语料，推理时多轮对话提问——RAG、微调、latent memory 之外的第四条路。</div>
+      </li>
 
-      <div class="section-label" style="margin-top:36px;">论文解读</div>
-      <ul class="article-list">
-        <li class="article-item">
-          <h2><a href="papers/aira-compose.html">AI Agent 自动设计神经网络架构：AIRA-Compose 和 AIRA-Design</a></h2>
-          <div class="article-meta">2026-05-20<span class="sep">AI Agent</span><span class="sep">NAS</span></div>
-          <div class="article-desc">用 AI Agent 自动完成神经网络架构搜索。AIRA-Compose 通过组合现有模块进行设计，AIRA-Design 则从零开始构造全新架构——无需人工设计经验，端到端自动化。</div>
-        </li>
+      <li class="article-item">
+        <h2><a href="papers/aira-compose.html">AI Agent 自动设计神经网络架构：AIRA-Compose 和 AIRA-Design</a></h2>
+        <div class="article-meta">2026-05-20<span class="sep">AI Agent</span><span class="sep">NAS</span></div>
+        <div class="article-desc">用 AI Agent 自动完成神经网络架构搜索。AIRA-Compose 通过组合现有模块进行设计，AIRA-Design 则从零开始构造全新架构——无需人工设计经验，端到端自动化。</div>
+      </li>
 
-        <li class="article-item">
-          <h2><a href="papers/effopd.html">OPD 为什么比 RL 快？"预见性"是答案</a></h2>
-          <div class="article-meta">2026-05-20<span class="sep">强化学习</span><span class="sep">优化</span></div>
-          <div class="article-desc">Opinion-Driven Policy Distillation 提出了一种比传统 RL 更高效的方法论。核心洞察是"预见性"——Agent 能够预判决策后果，从而跳过大量试错。</div>
-        </li>
+      <li class="article-item">
+        <h2><a href="papers/effopd.html">OPD 为什么比 RL 快？"预见性"是答案</a></h2>
+        <div class="article-meta">2026-05-20<span class="sep">强化学习</span><span class="sep">优化</span></div>
+        <div class="article-desc">Opinion-Driven Policy Distillation 提出了一种比传统 RL 更高效的方法论。核心洞察是"预见性"——Agent 能够预判决策后果，从而跳过大量试错。</div>
+      </li>
 
-        <li class="article-item">
-          <h2><a href="papers/useful-feedback.html">有用的记忆，在 LLM 持续更新中变得有缺陷</a></h2>
-          <div class="article-meta">2026-05-19<span class="sep">LLM</span><span class="sep">持续学习</span><span class="sep">记忆</span></div>
-          <div class="article-desc">探索 LLM 持续更新中一个反直觉现象：即使是正确的、有用的记忆，在模型更新后也可能变得不可靠。对持续学习系统的记忆管理提出警示。</div>
-        </li>
+      <li class="article-item">
+        <h2><a href="papers/useful-feedback.html">有用的记忆，在 LLM 持续更新中变得有缺陷</a></h2>
+        <div class="article-meta">2026-05-19<span class="sep">LLM</span><span class="sep">持续学习</span><span class="sep">记忆</span></div>
+        <div class="article-desc">探索 LLM 持续更新中一个反直觉现象：即使是正确的、有用的记忆，在模型更新后也可能变得不可靠。对持续学习系统的记忆管理提出警示。</div>
+      </li>
 
-        <li class="article-item">
-          <h2><a href="papers/visual-planning.html">Visual Planning：只用图像思考，不用语言推理</a></h2>
-          <div class="article-meta">2026-05-18<span class="sep">视觉推理</span><span class="sep">World Model</span></div>
-          <div class="article-desc">挑战"语言是推理必需载体"的假设，证明纯视觉规划可以完成复杂推理任务，且在某些场景下优于语言链式推理。</div>
-        </li>
-      </ul>
-    </div>
+      <li class="article-item">
+        <h2><a href="papers/visual-planning.html">Visual Planning：只用图像思考，不用语言推理</a></h2>
+        <div class="article-meta">2026-05-18<span class="sep">视觉推理</span><span class="sep">World Model</span></div>
+        <div class="article-desc">挑战"语言是推理必需载体"的假设，证明纯视觉规划可以完成复杂推理任务，且在某些场景下优于语言链式推理。</div>
+      </li>
 
-    <div class="pagination" id="pagination"></div>
+    </ul>
 
     <footer>
       <a href="https://paperdog.org">paperdog.org</a> · 公众号：论文狗-PaperDog
     </footer>
   </div>
-
-  <script>
-  (function() {
-    var PER_PAGE = 5;
-    var pages = document.querySelectorAll('.article-page');
-    var allItems = [];
-    pages.forEach(function(p) {
-      var items = p.querySelectorAll('.article-item');
-      items.forEach(function(item) { allItems.push(item); });
-    });
-
-    var totalPages = Math.ceil(allItems.length / PER_PAGE);
-    var currentPage = 1;
-
-    // Flatten: move all items into first page container, hide rest
-    var container = pages[0];
-    var listEl = container.querySelector('.article-list') || container;
-
-    function renderPage(n) {
-      currentPage = n;
-      // Show only items for this page
-      allItems.forEach(function(item, i) {
-        item.style.display = (i >= (n-1)*PER_PAGE && i < n*PER_PAGE) ? '' : 'none';
-      });
-      renderPagination();
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-
-    function renderPagination() {
-      var pg = document.getElementById('pagination');
-      if (totalPages <= 1) { pg.innerHTML = ''; return; }
-
-      var html = '<button onclick="window._goPage(' + (currentPage-1) + ')"' +
-                 (currentPage === 1 ? ' disabled' : '') + '>&larr; 上一页</button>';
-      html += '<span class="page-info">' + currentPage + ' / ' + totalPages + '</span>';
-      html += '<button onclick="window._goPage(' + (currentPage+1) + ')"' +
-              (currentPage === totalPages ? ' disabled' : '') + '>下一页 &rarr;</button>';
-      pg.innerHTML = html;
-    }
-
-    window._goPage = function(n) {
-      if (n < 1 || n > totalPages) return;
-      renderPage(n);
-    };
-
-    renderPage(1);
-  })();
-  </script>
 </body>
 </html>
