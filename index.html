@@ -5,58 +5,173 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PaperDog 论文解读</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif; background: #0f0f1a; color: #e0e0e0; min-height: 100vh; }
-  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); padding: 60px 20px 40px; text-align: center; }
-  .header h1 { font-size: 2.4rem; color: #fff; margin-bottom: 8px; letter-spacing: -0.5px; }
-  .header p { color: #8892b0; font-size: 1.1rem; }
-  .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
-  .paper-card { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 12px; padding: 24px 28px; margin-bottom: 20px; transition: transform 0.2s, border-color 0.2s; }
-  .paper-card:hover { transform: translateY(-2px); border-color: #4a6cf7; }
-  .paper-card h2 { font-size: 1.25rem; color: #fff; margin-bottom: 8px; line-height: 1.4; }
-  .paper-card .meta { color: #6a7b9b; font-size: 0.85rem; margin-bottom: 10px; }
-  .paper-card .desc { color: #a0aec0; font-size: 0.95rem; line-height: 1.6; }
-  .paper-card a { color: #4a6cf7; text-decoration: none; font-weight: 500; }
-  .paper-card a:hover { text-decoration: underline; }
-  .tag { display: inline-block; background: #2a2a4a; color: #8892b0; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; margin-right: 6px; }
-  .footer { text-align: center; color: #4a5568; font-size: 0.85rem; padding: 30px; border-top: 1px solid #1a1a2e; }
-  .footer a { color: #4a6cf7; }
+
+  body {
+    font-family: 'Noto Serif SC', 'Source Han Serif', 'PingFang SC', Georgia, serif;
+    background: #FDF8F0;
+    color: #2C2418;
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid #D4C9B8;
+    margin-bottom: 48px;
+  }
+
+  .site-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #1A1410;
+    margin-bottom: 6px;
+  }
+
+  .site-title .mark {
+    color: #C0552D;
+  }
+
+  .site-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #8B7E6A;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── Article List ── */
+  .article-list {
+    list-style: none;
+  }
+
+  .article-item {
+    padding: 28px 0;
+    border-bottom: 1px solid #E8DFD0;
+  }
+
+  .article-item:last-child {
+    border-bottom: none;
+  }
+
+  .article-item h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .article-item h2 a {
+    color: #2C2418;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .article-item h2 a:hover {
+    color: #C0552D;
+  }
+
+  .article-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #A09686;
+    margin-bottom: 10px;
+    letter-spacing: 0.2px;
+  }
+
+  .article-meta .sep {
+    margin: 0 8px;
+    color: #CCC3B5;
+  }
+
+  .article-desc {
+    font-size: 0.95rem;
+    color: #5C5347;
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: 40px 0 60px;
+    margin-top: 32px;
+    border-top: 1px solid #D4C9B8;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #A09686;
+  }
+
+  footer a {
+    color: #8B7355;
+    text-decoration: none;
+    border-bottom: 1px solid #D4C9B8;
+    transition: border-color 0.2s;
+  }
+
+  footer a:hover {
+    border-color: #C0552D;
+    color: #C0552D;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    header { padding: 48px 0 32px; margin-bottom: 32px; }
+    .site-title { font-size: 1.35rem; }
+    .article-item { padding: 20px 0; }
+    .article-item h2 { font-size: 1.05rem; }
+  }
 </style>
 </head>
 <body>
-  <div class="header">
-    <h1>🐾 PaperDog 论文解读</h1>
-    <p>AI 论文深度解读 · 交互式阅读</p>
-  </div>
-  <div class="container">
+  <div class="page">
+    <header>
+      <div class="site-title">Paper<span class="mark">Dog</span> 论文解读</div>
+      <div class="site-subtitle">AI papers, visualized and explained</div>
+    </header>
 
-    <div class="paper-card">
-      <h2><a href="papers/aira-compose.html">AI Agent 自动设计神经网络架构：AIRA-Compose 和 AIRA-Design</a></h2>
-      <div class="meta">2026-05-20 · <span class="tag">AI Agent</span><span class="tag">NAS</span><span class="tag">自动化</span></div>
-      <div class="desc">用 AI Agent 自动完成神经网络架构搜索，AIRA-Compose 通过组合现有模块设计，AIRA-Design 则从零开始设计全新架构。无需人工设计经验，端到端自动化。</div>
-    </div>
+    <ul class="article-list">
 
-    <div class="paper-card">
-      <h2><a href="papers/effopd.html">OPD 为什么比 RL 快？"预见性"是答案</a></h2>
-      <div class="meta">2026-05-20 · <span class="tag">强化学习</span><span class="tag">优化</span></div>
-      <div class="desc">Opinion-Driven Policy Distillation (OPD) 提出了一种比传统 RL 更高效的方法论，核心洞察是"预见性"——Agent 能够预判决策后果，从而跳过大量试错。</div>
-    </div>
+      <li class="article-item">
+        <h2><a href="papers/aira-compose.html">AI Agent 自动设计神经网络架构：AIRA-Compose 和 AIRA-Design</a></h2>
+        <div class="article-meta">2026-05-20<span class="sep">AI Agent</span><span class="sep">NAS</span></div>
+        <div class="article-desc">用 AI Agent 自动完成神经网络架构搜索。AIRA-Compose 通过组合现有模块进行设计，AIRA-Design 则从零开始构造全新架构——无需人工设计经验，端到端自动化。</div>
+      </li>
 
-    <div class="paper-card">
-      <h2><a href="papers/useful-feedback.html">有用的记忆，在 LLM 持续更新中变得有缺陷</a></h2>
-      <div class="meta">2026-05-19 · <span class="tag">LLM</span><span class="tag">持续学习</span><span class="tag">记忆</span></div>
-      <div class="desc">探索 LLM 持续更新中一个反直觉现象：即使是正确的、有用的记忆，在模型更新后也可能变得不可靠。对持续学习系统的记忆管理提出警示。</div>
-    </div>
+      <li class="article-item">
+        <h2><a href="papers/effopd.html">OPD 为什么比 RL 快？"预见性"是答案</a></h2>
+        <div class="article-meta">2026-05-20<span class="sep">强化学习</span><span class="sep">优化</span></div>
+        <div class="article-desc">Opinion-Driven Policy Distillation 提出了一种比传统 RL 更高效的方法论。核心洞察是"预见性"——Agent 能够预判决策后果，从而跳过大量试错。</div>
+      </li>
 
-    <div class="paper-card">
-      <h2><a href="papers/visual-planning.html">Visual Planning：只用图像思考，不用语言推理</a></h2>
-      <div class="meta">2026-05-18 · <span class="tag">视觉推理</span><span class="tag">World Model</span></div>
-      <div class="desc">挑战"语言是推理必需载体"的假设，证明纯视觉规划可以完成复杂推理任务，且在某些场景下优于语言链式推理。</div>
-    </div>
+      <li class="article-item">
+        <h2><a href="papers/useful-feedback.html">有用的记忆，在 LLM 持续更新中变得有缺陷</a></h2>
+        <div class="article-meta">2026-05-19<span class="sep">LLM</span><span class="sep">持续学习</span><span class="sep">记忆</span></div>
+        <div class="article-desc">探索 LLM 持续更新中一个反直觉现象：即使是正确的、有用的记忆，在模型更新后也可能变得不可靠。对持续学习系统的记忆管理提出警示。</div>
+      </li>
 
-  </div>
-  <div class="footer">
-    Powered by <a href="https://paperdog.org">PaperDog.org</a> · 公众号：论文狗-PaperDog
+      <li class="article-item">
+        <h2><a href="papers/visual-planning.html">Visual Planning：只用图像思考，不用语言推理</a></h2>
+        <div class="article-meta">2026-05-18<span class="sep">视觉推理</span><span class="sep">World Model</span></div>
+        <div class="article-desc">挑战"语言是推理必需载体"的假设，证明纯视觉规划可以完成复杂推理任务，且在某些场景下优于语言链式推理。</div>
+      </li>
+
+    </ul>
+
+    <footer>
+      <a href="https://paperdog.org">paperdog.org</a> · 公众号：论文狗-PaperDog
+    </footer>
   </div>
 </body>
 </html>
