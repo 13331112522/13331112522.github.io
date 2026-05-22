@@ -255,6 +255,18 @@
       <div class="section-label" style="margin-top:36px;">论文解读</div>
       <ul class="article-list">
         <li class="article-item">
+          <h2><a href="papers/ptrm.html">PTRM：7M 参数干翻 Claude-4，噪声解锁推理潜能</a></h2>
+          <div class="article-meta">2026-05-22<span class="sep">递归推理</span><span class="sep">测试时计算</span><span class="sep">TRM</span></div>
+          <div class="article-desc">给递归推理模型加噪声、跑 K 条并行轨迹、用 Q 头选最优——不重训练、不增数据，7M 参数成本 $0.001，PPBench 准确率 91.2%（Claude Opus 4 仅 34.7%）。推理瓶颈在探索能力，不在模型容量。</div>
+        </li>
+
+        <li class="article-item">
+          <h2><a href="papers/gram.html">GRAM：生成式递归推理，让神经网络学会"发散思维"</a></h2>
+          <div class="article-meta">2026-05-22<span class="sep">递归推理</span><span class="sep">变分推理</span><span class="sep">多轨迹</span></div>
+          <div class="article-desc">将递归推理从确定性变成概率性：高层随机探索 + 低层确定性精炼，支持宽度式推理扩展。Sudoku 97%、N-Queens 覆盖率 90.3%，20 条并行轨迹超越所有确定性模型 320 步迭代。</div>
+        </li>
+
+        <li class="article-item">
           <h2><a href="papers/hrm-text.html">HRM-Text：40B token + $1500 训练出打平 2-7B 的 1B 模型</a></h2>
           <div class="article-meta">2026-05-22<span class="sep">高效预训练</span><span class="sep">递归架构</span><span class="sep">PrefixLM</span></div>
           <div class="article-desc">分层递归架构替代标准 Transformer，配合 task-completion 目标和 PrefixLM attention，40B token 从零训练 1B 模型，计算效率比 Llama/Qwen/Gemma 高 96-432 倍。$1,500 预算让任何实验室都能做预训练研究。</div>
