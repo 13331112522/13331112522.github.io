@@ -445,7 +445,9 @@
       if (n < 1 || n > totalPages) return;
       currentPage = n;
       render();
-      window.scrollTo({top: 0, behavior: 'smooth'});
+      if (papersLabel) {
+        papersLabel.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
     };
 
     // Search with debounce
