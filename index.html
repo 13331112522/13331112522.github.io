@@ -350,8 +350,6 @@
       <input type="text" id="search-input" placeholder="搜索论文标题、标签…" autocomplete="off">
     </div>
 
-    <div class="pagination" id="pagination"></div>
-
     <footer>
       <a href="https://paperdog.org">paperdog.org</a> · 公众号：论文狗-PaperDog
     </footer>
@@ -362,15 +360,13 @@
     var PER_PAGE = 5;
 
     // Collect featured items (always visible) and paper items (paginated)
-    var featuredList = document.querySelector('.article-item.featured');
-    var papersList = document.querySelector('.section-label:nth-of-type(2)')
-                     ? document.querySelectorAll('.article-list')[1]
-                     : document.querySelectorAll('.article-list')[0];
+    var sectionLabels = document.querySelectorAll('.section-label');
+    var articleLists = document.querySelectorAll('.article-list');
+    var tutorialLabel = sectionLabels[0];
+    var blogLabel = sectionLabels[1];
+    var papersLabel = sectionLabels[2];
+    var papersList = articleLists[2] || articleLists[articleLists.length - 1];
     var paperItems = papersList ? Array.from(papersList.querySelectorAll('.article-item')) : [];
-
-    // Section labels
-    var tutorialLabel = document.querySelectorAll('.section-label')[0];
-    var papersLabel = document.querySelectorAll('.section-label')[1];
 
     var currentPage = 1;
     var filteredItems = paperItems.slice(); // copy
@@ -392,12 +388,14 @@
     }
 
     function render() {
-      // Show/hide featured section
-      var featuredParent = featuredList ? featuredList.parentNode : null;
-      if (featuredParent) {
-        featuredParent.style.display = searchQuery ? 'none' : '';
-      }
+      // Show/hide featured sections
+      var featuredParents = document.querySelectorAll('.article-item.featured');
+      featuredParents.forEach(function(item) {
+        var parent = item.closest('ul');
+        if (parent) parent.style.display = searchQuery ? 'none' : '';
+      });
       if (tutorialLabel) tutorialLabel.style.display = searchQuery ? 'none' : '';
+      if (blogLabel) blogLabel.style.display = searchQuery ? 'none' : '';
       if (papersLabel) papersLabel.textContent = searchQuery ? '搜索结果' : '论文解读';
 
       // Paginate paper items
