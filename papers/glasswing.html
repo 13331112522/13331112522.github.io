@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Glasswing 首月战报</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif SC', 'Source Han Serif', 'PingFang SC', Georgia, serif;
+    background: #FDF8F0;
+    color: #2C2418;
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+  header {
+    padding: 72px 0 48px;
+    border-bottom: 1px solid #D4C9B8;
+    margin-bottom: 48px;
+  }
+  .site-title {
+    font-size: 1.1rem; font-weight: 600; color: #8B7E6A;
+    margin-bottom: 16px; letter-spacing: 0.3px;
+  }
+  .site-title a { color: #C0552D; text-decoration: none; }
+  .paper-title {
+    font-size: 1.6rem; font-weight: 700; line-height: 1.4;
+    color: #1A1410; margin-bottom: 12px; letter-spacing: -0.3px;
+  }
+  .paper-meta {
+    font-family: 'Inter', sans-serif; font-size: 0.82rem;
+    color: #A09686; margin-bottom: 8px;
+  }
+  .paper-meta .sep { margin: 0 8px; color: #CCC3B5; }
+  .paper-meta .badge {
+    display: inline-block; background: #C0552D; color: #FDF8F0;
+    font-size: 0.72rem; font-weight: 600; padding: 2px 8px;
+    border-radius: 3px; margin-right: 6px; vertical-align: middle;
+  }
+  h2 {
+    font-size: 1.25rem; font-weight: 600; color: #1A1410;
+    margin: 40px 0 16px; letter-spacing: -0.2px;
+    padding-bottom: 8px; border-bottom: 2px solid #C0552D;
+    display: inline-block;
+  }
+  p { margin-bottom: 18px; line-height: 1.85; }
+  strong { color: #1A1410; }
+  .highlight {
+    background: linear-gradient(135deg, #FBF3EA 0%, #FDF8F0 100%);
+    border-left: 3px solid #C0552D; padding: 16px 20px;
+    margin: 24px 0; font-size: 0.95rem; color: #5C5347;
+  }
+  .stat-row {
+    display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap;
+  }
+  .stat-card {
+    flex: 1; min-width: 140px;
+    background: #FBF3EA; border: 1px solid #E8DFD0;
+    padding: 16px 18px; text-align: center;
+  }
+  .stat-card .num {
+    font-family: 'Inter', sans-serif; font-size: 1.5rem;
+    font-weight: 700; color: #C0552D; line-height: 1.2;
+  }
+  .stat-card .label {
+    font-size: 0.82rem; color: #8B7E6A; margin-top: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+  footer {
+    padding: 40px 0 60px; margin-top: 48px;
+    border-top: 1px solid #D4C9B8;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem;
+    color: #A09686;
+  }
+  footer a {
+    color: #8B7355; text-decoration: none;
+    border-bottom: 1px solid #D4C9B8;
+  }
+  footer a:hover { border-color: #C0552D; color: #C0552D; }
+  @media (max-width: 640px) {
+    header { padding: 48px 0 32px; margin-bottom: 32px; }
+    .paper-title { font-size: 1.3rem; }
+    h2 { font-size: 1.1rem; }
+    .stat-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="site-title"><a href="https://13331112522.github.io">PaperDog</a> 论文解读</div>
+    <div class="paper-title">Project Glasswing 首月战报：AI 漏洞挖掘速度已经超越人类修补速度</div>
+    <div class="paper-meta">
+      <span class="badge">AI 安全</span>
+      <span class="badge">漏洞挖掘</span>
+      2026-05
+      <span class="sep">Anthropic Research</span>
+    </div>
+  </header>
+
+  <div class="highlight">
+    Anthropic 用 Claude Mythos Preview 联合 50 家合作伙伴，一个月发现超过 10,000 个高危漏洞。网络安全进步的瓶颈已经从"发现"变成了"修补"。
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="num">10,000+</div>
+      <div class="label">高危/严重漏洞</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">50</div>
+      <div class="label">合作伙伴</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">10×</div>
+      <div class="label">漏洞发现提速</div>
+    </div>
+  </div>
+
+  <h2>一个月一万多个高危漏洞</h2>
+  <p>Anthropic 上个月启动了 Project Glasswing——用专门的 AI 模型 Claude Mythos Preview，联合全球约 50 家头部基础设施合作伙伴，对最关键的软件进行大规模漏洞扫描。一个月后的成绩单：超过 10,000 个高危或严重级别漏洞。</p>
+  <p>这个数字意味着什么？Mozilla 用 Mythos 测 Firefox 150，找到了 271 个漏洞，是上一版用 Claude Opus 4.6 测 Firefox 148 的十倍以上。Cloudflare 在核心路径系统里发现了 2,000 个 bug，其中 400 个高危或严重，而且误报率比人类安全工程师还低。Palo Alto Networks 最新一版的补丁数量是平时的五倍。</p>
+  <p>英国的 AI 安全研究所（AISI）报告说，Mythos 是第一个能端到端完成他们两个网络攻击模拟靶场的模型。独立安全平台 XBOW 的评价更直接：在 web exploit 基准上"token 效率绝对史无前例"。</p>
+
+  <h2>瓶颈已经转移</h2>
+  <p>这篇更新最核心的一句话是：<strong>网络安全进步的瓶颈已经从"能多快发现漏洞"变成了"能多快验证、披露和修补"。</strong></p>
+  <p>这是一个质变。过去几十年，安全行业最大的痛点是找不到漏洞——攻击者可能利用一个未知漏洞潜伏几年。现在问题反过来了：AI 找漏洞的速度远远超过了整个软件供应链消化这些发现的能力。每一个漏洞的修补流程涉及确认、复现、编写补丁、测试兼容性、协调披露、等待部署——这个链条上的每个环节都还靠人，而且很多开源项目的维护者是志愿者。</p>
+  <p>Anthropic 自己也清楚这个问题。他们发布了 Claude Security 企业版漏洞扫描工具，三周内 Claude Opus 4.7 帮企业打了 2,100 多个补丁。但企业打补丁快，是因为他们在修自己的代码；开源世界的修补速度要慢得多。</p>
+
+  <h2>Mythos 为什么还不公开</h2>
+  <p>Anthropic 明确表示不会公开发布 Mythos 级别的模型。原因很简单：当前没有任何公司——包括 Anthropic 自己——开发出了足够强的安全防护，能防止这种模型被恶意使用。一个能自动发现上万漏洞的 AI，如果落到攻击者手里，后果不堪设想。</p>
+  <p>所以他们选择了 Glasswing 这条路：先把能力给防守方，建立不对称优势。同时开放了 Cyber Verification Program，让合法安全研究人员可以申请解除部分使用限制。</p>
+
+  <h2>这意味着什么</h2>
+  <p>从 AI 能力演进的角度看，Glasswing 的成绩说明了几件事：</p>
+  <p><strong>第一</strong>，AI 在代码安全领域的应用已经从辅助工具变成了生产力倍增器。不是"帮人类看代码"的水平，而是独立发现人类找不到的漏洞，而且速度十倍于人类。</p>
+  <p><strong>第二</strong>，软件安全行业的整个工作流程面临重构。传统的 90 天披露窗口、人工复现确认、志愿者维护者驱动的补丁流程，在 AI 的发现速度面前已经不够用了。需要新的基础设施来处理海量漏洞报告。</p>
+  <p><strong>第三</strong>，AI 安全的讨论正在从"AI 能否做 X"转向"AI 已经能做 X，我们怎么应对"。Mythos 不是未来的威胁，它是当下的能力。真正的问题是：当多家公司都能训练出同类模型时，谁能先把这个能力变成防守方的武器。</p>
+  <p>Anthropic 的赌注很清楚：先帮好人把墙修好，坏人想翻墙的时候就翻不过去了。但时间窗口不会永远存在——他们自己也承认，"Mythos 级别的模型很快会被多家 AI 公司开发出来"。防守方跑得必须比进攻方更快，而这个速度差距正在被 AI 快速拉平。</p>
+  <p>Glasswing 不是一篇技术论文，但它比大多数论文都更紧迫。它描述的世界已经在发生：AI 发现漏洞的能力已经超越了人类修补漏洞的能力，而这个差距还在扩大。</p>
+
+  <footer>
+    <a href="https://www.anthropic.com/research/glasswing-initial-update">anthropic.com/research/glasswing-initial-update</a> ·
+    <a href="https://paperdog.org">paperdog.org</a> · 公众号：论文狗-PaperDog
+  </footer>
+</div>
+</body>
+</html>
