@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>强老师不是必需品？LLM 预训练蒸馏的常识颠覆</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif SC', 'Source Han Serif', 'PingFang SC', Georgia, serif;
+    background: #FDF8F0; color: #2C2418; line-height: 1.8; font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+  header {
+    padding: 72px 0 48px; border-bottom: 1px solid #D4C9B8; margin-bottom: 48px;
+  }
+  .site-title {
+    font-size: 1.1rem; font-weight: 600; color: #8B7E6A;
+    margin-bottom: 16px; letter-spacing: 0.3px;
+  }
+  .site-title a { color: #C0552D; text-decoration: none; }
+  .paper-title {
+    font-size: 1.6rem; font-weight: 700; line-height: 1.4;
+    color: #1A1410; margin-bottom: 12px; letter-spacing: -0.3px;
+  }
+  .paper-meta {
+    font-family: 'Inter', sans-serif; font-size: 0.82rem;
+    color: #A09686; margin-bottom: 8px;
+  }
+  .paper-meta .sep { margin: 0 8px; color: #CCC3B5; }
+  .paper-meta .badge {
+    display: inline-block; background: #C0552D; color: #FDF8F0;
+    font-size: 0.72rem; font-weight: 600; padding: 2px 8px;
+    border-radius: 3px; margin-right: 6px; vertical-align: middle;
+  }
+  h2 {
+    font-size: 1.25rem; font-weight: 600; color: #1A1410;
+    margin: 40px 0 16px; letter-spacing: -0.2px;
+    padding-bottom: 8px; border-bottom: 2px solid #C0552D;
+    display: inline-block;
+  }
+  p { margin-bottom: 18px; line-height: 1.85; }
+  strong { color: #1A1410; }
+  .highlight {
+    background: linear-gradient(135deg, #FBF3EA 0%, #FDF8F0 100%);
+    border-left: 3px solid #C0552D; padding: 16px 20px;
+    margin: 24px 0; font-size: 0.95rem; color: #5C5347;
+  }
+  .insight-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0;
+  }
+  .insight-card {
+    background: #FBF3EA; border: 1px solid #E8DFD0; padding: 16px 18px;
+  }
+  .insight-card .icon { font-size: 1.3rem; margin-bottom: 6px; }
+  .insight-card .title {
+    font-size: 0.88rem; font-weight: 600; color: #1A1410; margin-bottom: 4px;
+    font-family: 'Inter', sans-serif;
+  }
+  .insight-card .desc { font-size: 0.82rem; color: #6B6055; line-height: 1.6; }
+  footer {
+    padding: 40px 0 60px; margin-top: 48px;
+    border-top: 1px solid #D4C9B8;
+    font-family: 'Inter', sans-serif; font-size: 0.8rem; color: #A09686;
+  }
+  footer a { color: #8B7355; text-decoration: none; border-bottom: 1px solid #D4C9B8; }
+  footer a:hover { border-color: #C0552D; color: #C0552D; }
+  @media (max-width: 640px) {
+    header { padding: 48px 0 32px; margin-bottom: 32px; }
+    .paper-title { font-size: 1.3rem; }
+    h2 { font-size: 1.1rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="site-title"><a href="https://13331112522.github.io">PaperDog</a> 论文解读</div>
+    <div class="paper-title">强老师不是必需品？LLM 预训练蒸馏的常识颠覆</div>
+    <div class="paper-meta">
+      <span class="badge">知识蒸馏</span>
+      <span class="badge">预训练</span>
+      <span class="badge">泛化</span>
+      2026-05-22
+      <span class="sep">Princeton</span>
+    </div>
+  </header>
+
+  <div class="highlight">
+    知识蒸馏的黄金法则"强老师带出好学生"被推翻了。弱老师也能教出好学生，更强的老师反而可能让蒸馏收益饱和甚至逆转。蒸馏的真正价值在泛化而非拟合。
+  </div>
+
+  <div class="insight-grid">
+    <div class="insight-card">
+      <div class="icon">📉</div>
+      <div class="title">弱老师也有效</div>
+      <div class="desc">小模型、少 token 训练的教师也能提升更大学生的性能，关键是 LM loss 与 KD loss 的混合比例</div>
+    </div>
+    <div class="insight-card">
+      <div class="icon">⚡</div>
+      <div class="title">强老师有上限</div>
+      <div class="desc">更大参数、更多 token 训练的教师，蒸馏收益边际递减甚至为负</div>
+    </div>
+    <div class="insight-card">
+      <div class="icon">🎯</div>
+      <div class="title">泛化 &gt; 拟合</div>
+      <div class="desc">蒸馏对分布外表现和下游任务的提升远大于域内困惑度改善</div>
+    </div>
+    <div class="insight-card">
+      <div class="icon">💰</div>
+      <div class="title">工程门槛降低</div>
+      <div class="desc">不必先训练巨型教师模型，中等规模+合理策略即可支撑有效蒸馏预训练</div>
+    </div>
+  </div>
+
+  <h2>蒸馏的默认假设是错的</h2>
+  <p>知识蒸馏的黄金法则：强老师带出好学生。模型越大、训练越充分的教师模型，蒸馏出来的学生模型越好。这个假设几乎贯穿了从 Hinton 2015 年提出蒸馏以来的全部实践。但 Princeton 的 Taiming Lu 和 Zhuang Liu 这篇论文说：不一定。</p>
+  <p>他们做了一个系统的实验：通过调整架构大小和训练 token 预算，构造了强→弱、同级→同级、弱→强三种教师-学生关系，然后在每种关系下研究蒸馏预训练的效果。结论非常反常识：</p>
+  <p><strong>弱老师也能教出好学生。</strong>只要合理混合语言建模损失和知识蒸馏损失的权重，即使是参数量更小、训练更不充分的教师模型，也能帮助更大的学生模型提升性能。这不是什么特殊技巧，就是调整好 LM loss 和 KD loss 的混合比例就能做到。</p>
+  <p><strong>强老师不一定更好。</strong>把教师模型做得更大、训练 token 更多，蒸馏收益反而会饱和甚至逆转。更强的老师不等于更好的学生——过强的教师输出分布可能过于"确定"，反而压缩了学生模型的探索空间。</p>
+
+  <h2>更有趣的发现：蒸馏改善泛化而非拟合</h2>
+  <p>论文还发现了一个被忽视的现象：蒸馏在提升泛化能力（分布外表现和下游任务）上的效果，远比在域内拟合上的效果明显。</p>
+  <p>这其实提供了一个很好的直觉解释。蒸馏本质上不是在教学生"记住"训练数据，而是在传递教师模型学到的<strong>决策边界结构</strong>。教师模型的 logit 分布编码了关于数据流形的信息——哪些样本接近、哪些决策边界更重要。学生模型学到的不是标签本身，而是标签之间的相对关系。这正是泛化能力的来源。</p>
+  <p>这也解释了为什么弱老师也能帮上忙：即使是小模型，只要它在训练数据上学到了某些有用的结构信息，这些信息就能通过蒸馏传递给更大的学生模型。</p>
+
+  <h2>工程意义：蒸馏预训练不必等大模型</h2>
+  <p>对工程实践来说，这篇论文的启示很直接：</p>
+  <p><strong>蒸馏预训练的门槛比想象中低得多。</strong>不需要先训练一个耗资巨大的巨型教师模型再蒸馏。一个中等规模的模型、合理的训练预算、调好 loss 混合比例，就足以支撑有效的蒸馏预训练流程。</p>
+  <p><strong>更大的教师模型有边际收益递减甚至为负的风险。</strong>在资源有限的情况下，与其把预算砸在教师模型上，不如把资源分给学生模型本身或更好的蒸馏策略上。</p>
+  <p><strong>蒸馏的价值主要在泛化。</strong>如果目标是提升域内困惑度，蒸馏可能不是最高效的方法；但如果目标是提升下游任务和分布外鲁棒性，蒸馏是非常高效的手段。</p>
+
+  <h2>论文标题的问号</h2>
+  <p>"Strong Teacher Not Needed?"——标题里的问号很诚实。这篇论文没有说弱老师一定更好，而是在说"强老师的优势被高估了，弱老师的能力被低估了"。蒸馏预训练中真正重要的不是教师模型的绝对强度，而是 loss 设计和训练策略。对整个 LLM 预训练领域来说，这是一个值得重新审视基本假设的提醒。</p>
+
+  <footer>
+    <a href="https://arxiv.org/abs/2605.23857">arxiv.org/abs/2605.23857</a> ·
+    <a href="https://paperdog.org">paperdog.org</a> · 公众号：论文狗-PaperDog
+  </footer>
+</div>
+</body>
+</html>
