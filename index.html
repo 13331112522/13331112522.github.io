@@ -283,6 +283,18 @@
       <div class="section-label" style="margin-top:36px;">论文解读</div>
       <ul class="article-list">
         <li class="article-item">
+          <h2><a href="papers/oryx-multi-mixer.html">Oryx：在序列维度上自由切换 Attention 和线性循环</a></h2>
+          <div class="article-meta">2026-05-30<span class="sep">Hybrid Architecture</span><span class="sep">Mamba-2</span><span class="sep">Gated DeltaNet</span><span class="sep">Google Research</span></div>
+          <div class="article-desc">序列轴混合：tied K/V 投影共享 90%+ 参数，一套表示同时更新 KV cache 和 RNN state，序列内动态切换 attention 和 linear RNN。linear prefill + attention generation 即追平 Transformer 检索，算力省得多。</div>
+        </li>
+
+        <li class="article-item">
+          <h2><a href="papers/latent-prediction.html">Latent Prediction：LLM 的下一个范式？把 Token Prediction 换成潜变量预测</a></h2>
+          <div class="article-meta">2026-05-30<span class="sep">Pre-training Paradigm</span><span class="sep">Latent Space</span><span class="sep">Meta</span></div>
+          <div class="article-desc">Meta 提出将 LLM 预训练从离散 token prediction 换成连续潜变量预测——autoencoder 先压缩 token 到 latent，模型预测 latent 向量而非 next token。推理速度提升 2.7×，质量持平甚至超越，语义等价性大幅增强。</div>
+        </li>
+
+        <li class="article-item">
           <h2><a href="papers/sia-self-improving.html">SIA：同时拧两颗螺丝的自改进 AI</a></h2>
           <div class="article-meta">2026-05-30<span class="sep">Self-Improving</span><span class="sep">Test-Time Training</span><span class="sep">Harness</span><span class="sep">Hexo Labs</span></div>
           <div class="article-desc">第一个在同一个闭环中同时更新 scaffold 和模型权重的系统。Feedback-Agent 运行时动态选择 RL 算法，三个跨域实验一致证明 harness 与权重更新增益不互相饱和。</div>
