@@ -283,6 +283,18 @@
       <div class="section-label" style="margin-top:36px;">论文解读</div>
       <ul class="article-list">
         <li class="article-item">
+          <h2><a href="papers/sia-self-improving.html">SIA：同时拧两颗螺丝的自改进 AI</a></h2>
+          <div class="article-meta">2026-05-30<span class="sep">Self-Improving</span><span class="sep">Test-Time Training</span><span class="sep">Harness</span><span class="sep">Hexo Labs</span></div>
+          <div class="article-desc">第一个在同一个闭环中同时更新 scaffold 和模型权重的系统。Feedback-Agent 运行时动态选择 RL 算法，三个跨域实验一致证明 harness 与权重更新增益不互相饱和。</div>
+        </li>
+
+        <li class="article-item">
+          <h2><a href="papers/bes-self-improving.html">BES：给大模型一杆秤，它就能自己改代码</a></h2>
+          <div class="article-meta">2026-05-30<span class="sep">Self-Improving</span><span class="sep">Self-Play</span><span class="sep">迭代优化</span><span class="sep">Google DeepMind</span></div>
+          <div class="article-desc">DeepMind 的自改进代码优化器：给定一个评分函数，模型在三个阶段（种群采样→自我评估→自我优化）中迭代生成、评分、改进代码，无需外部 solver。3× 计算量即可达到 2× 最终性能，且跨模型泛化。</div>
+        </li>
+
+        <li class="article-item">
           <h2><a href="papers/polar-agentic-rl.html">Polar：把任意 Agent 框架变成 RL 环境的黑盒方案</a></h2>
           <div class="article-meta">2026-05-29<span class="sep">Agentic RL</span><span class="sep">NVIDIA</span><span class="sep">Rollout框架</span></div>
           <div class="article-desc">NVIDIA NeMo 团队的 rollout 框架：在 LLM API 边界架代理捕获 token 级交互，把任意 agent harness 当黑盒做 scalable RL。Qwen3.5-4B + GRPO 在 Codex harness 上 SWE-Bench Verified 从 3.8%→26.4%，prefix merging 压缩 5.4× trace。</div>
